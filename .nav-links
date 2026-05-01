@@ -696,7 +696,16 @@
   .legal-modal .highlight { border-left: 3px solid var(--gold); padding: 1rem 1.5rem; background: rgba(201,168,76,0.04); margin: 1.5rem 0; }
 @keyframes drawLine { to { stroke-dashoffset: 0; } }
 @keyframes fadeIn { to { opacity: 1; } }
-</style>
+.hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+.hamburger span { display:block; width:22px; height:2px; background:var(--cream); border-radius:2px; transition:all 0.3s; }
+.hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity:0; }
+.hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display:none; flex-direction:column; align-items:center; gap:1.5rem; padding:2rem; background:var(--navy-mid); border-top:1px solid rgba(201,168,76,0.2); }
+.mobile-menu a { color:var(--slate); font-size:0.85rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; }
+.mobile-menu a:hover { color:var(--gold); }
+.mobile-menu .nav-cta { color:var(--navy) !important; background:var(--gold); padding:0.55rem 1.4rem; }
+@media(max-width:768px) { .nav-links { display:none; } .hamburger { display:flex; } .mobile-menu.open { display:flex; } }</style>
 </head>
 <body>
 
@@ -729,7 +738,18 @@
     <a href="#process">How It Works</a>
     <a href="https://tally.so/r/oble91" target="_blank" class="nav-cta">Request Your Free Content Strategy Session</a>
   </div>
+<button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#pricing" onclick="toggleMenu()">Pricing</a>
+  <a href="#process" onclick="toggleMenu()">How It Works</a>
+  <a href="https://tally.so/r/oble91" target="_blank" class="nav-cta" onclick="toggleMenu()">Request Your Free Content Strategy Session</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1464,7 +1484,13 @@ Pinnacle Content Co. is a content marketing agency. All content produced is for 
     requestAnimationFrame(step);
   }
 
-  initLogo();
+  function toggleMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const btn = document.querySelector('.hamburger');
+  menu.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+initLogo();
 </script>
 </body>
 </html>
