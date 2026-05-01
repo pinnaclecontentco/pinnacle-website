@@ -522,15 +522,8 @@
     position: relative;
   }
 
- .testimonial-block::before {
-   content: none;
-    font-family: Georgia, serif;
-    font-size: 8rem;
-    color: rgba(201,168,76,0.2);
-    position: absolute;
-    top: 0.5rem;
-    left: 1.5rem;
-    line-height: 1;
+  .testimonial-block::before {
+    content: none;
   }
 
   .testimonial-block p {
@@ -820,20 +813,23 @@
 
 <!-- PRICING -->
 <section class="section" id="pricing">
-  <div class="pricing-inner">
+  <div class="pricing-inner" style="max-width:1100px;">
     <div class="pricing-header">
       <div class="section-label">Simple pricing</div>
-      <h2>One flat monthly rate. No surprises.</h2>
-      <p>We keep it simple so you can budget with confidence. Cancel anytime.</p>
+      <h2>Two plans. Zero long-term contracts.</h2>
+      <p>Start with Starter and upgrade anytime. Cancel whenever you want.</p>
     </div>
-    <div class="pricing-card">
-      <div class="pricing-badge">Most Popular</div>
-      <div>
-        <div class="price"><sup>$</sup>800</div>
-        <div class="price-label">per month — no contracts</div>
-        <a href="https://tally.so/r/oble91" target="_blank" class="btn-primary" style="margin-top:1rem; display:inline-block;">Start Today</a>
-      </div>
-      <div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5px; background:rgba(201,168,76,0.15);">
+
+      <!-- STARTER -->
+      <div class="pricing-card" style="border:none; position:relative;">
+        <div class="pricing-badge" style="background:var(--slate); color:var(--navy);">Starter</div>
+        <div style="margin-bottom:2rem;">
+          <div class="price"><sup>$</sup>800</div>
+          <div class="price-label">per month — no contracts</div>
+          <a href="https://tally.so/r/oble91" target="_blank" class="btn-ghost" style="margin-top:1rem; display:inline-block;">Get Started</a>
+        </div>
         <ul class="includes-list">
           <li><strong>4 SEO-optimized blog posts</strong> (800–1,200 words each)</li>
           <li><strong>4 LinkedIn posts</strong> crafted for financial professionals</li>
@@ -841,14 +837,36 @@
           <li>Finance-specific research and accurate figures</li>
           <li>One round of revisions per piece</li>
           <li>Delivered on a <strong>consistent monthly schedule</strong></li>
+          <li>You review and publish</li>
           <li>Add a monthly newsletter for <strong>+$200/mo</strong></li>
         </ul>
       </div>
+
+      <!-- PRO -->
+      <div class="pricing-card" style="border:none; position:relative; background:rgba(201,168,76,0.04);">
+        <div class="pricing-badge">Most Popular</div>
+        <div style="margin-bottom:2rem;">
+          <div class="price"><sup>$</sup>1,000</div>
+          <div class="price-label">per month — no contracts</div>
+          <a href="https://tally.so/r/oble91" target="_blank" class="btn-primary" style="margin-top:1rem; display:inline-block;">Get Started</a>
+        </div>
+        <ul class="includes-list">
+          <li><strong>4 SEO-optimized blog posts</strong> (800–1,200 words each)</li>
+          <li><strong>4 LinkedIn posts</strong> crafted for financial professionals</li>
+          <li>Written under <strong>your name and voice</strong></li>
+          <li>Finance-specific research and accurate figures</li>
+          <li>One round of revisions per piece</li>
+          <li>Delivered on a <strong>consistent monthly schedule</strong></li>
+          <li><strong>Done-for-you publishing</strong> — we post directly to your site</li>
+          <li>Add a monthly newsletter for <strong>+$200/mo</strong></li>
+        </ul>
+      </div>
+
     </div>
   </div>
 
   <!-- ROI BLOCK -->
-  <div style="max-width:900px; margin:2rem auto 0; display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; background:rgba(201,168,76,0.1);">
+  <div style="max-width:1100px; margin:2rem auto 0; display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; background:rgba(201,168,76,0.1);">
     <div style="background:var(--navy-mid); padding:1.8rem; text-align:center;">
       <div style="font-family:Cormorant Garamond,serif; font-size:2rem; font-weight:600; color:var(--gold); margin-bottom:0.5rem;">1 client</div>
       <div style="font-size:0.85rem; color:var(--slate); line-height:1.6;">One new client from your content pays for an entire year of our service</div>
@@ -896,8 +914,8 @@
 
 <!-- TESTIMONIAL -->
 <section class="testimonial-section">
-  <div class="testimonial-block">
-    <p><span style="font-size:5rem; color:rgba(201,168,76,0.3); line-height:0; vertical-align:-2rem; font-family:Georgia,serif;">"</span>I went from publishing to having four articles live every month. Within 90 days I had two new clients who found me through Google. The ROI is obvious.</p>
+  <div class="testimonial-block"><span style="font-family:Cormorant Garamond,serif; font-size:8rem; color:rgba(201,168,76,0.2); position:absolute; top:-1rem; left:1.5rem; line-height:1;">&ldquo;</span>
+    <p>I went from publishing nothing to having four articles live every month. Within 90 days I had two new clients who found me through Google. The ROI is obvious.</p>
     <div class="testimonial-author"><strong>Sarah M.</strong> — CPA, Solo Practice, Austin TX</div>
   </div>
 </section>
