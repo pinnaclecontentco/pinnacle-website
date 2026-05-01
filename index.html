@@ -694,6 +694,8 @@
   .legal-modal ul { margin: 0.5rem 0 1rem 1.5rem; }
   .legal-modal ul li { font-size: 0.92rem; line-height: 1.8; color: var(--slate); margin-bottom: 0.3rem; }
   .legal-modal .highlight { border-left: 3px solid var(--gold); padding: 1rem 1.5rem; background: rgba(201,168,76,0.04); margin: 1.5rem 0; }
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+@keyframes fadeIn { to { opacity: 1; } }
 </style>
 </head>
 <body>
@@ -701,13 +703,25 @@
 <!-- NAV -->
 <nav>
   <div class="logo">
-    <svg width="170" height="46" viewBox="0 0 170 46" xmlns="http://www.w3.org/2000/svg">
-      <polyline points="8,36 18,20 28,28 40,10 50,18 62,2" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
-      <circle cx="62" cy="2" r="3" fill="#C9A84C"/>
-      <text x="44" y="30" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" letter-spacing="1">PINNACLE</text>
-      <line x1="44" y1="35" x2="166" y2="35" stroke="#C9A84C" stroke-width="0.6"/>
-      <text x="44" y="44" font-family="Arial, sans-serif" font-size="6" fill="#C9A84C" letter-spacing="3">CONTENT CO.</text>
-    </svg>
+   <svg id="pinnacle-logo" width="170" height="46" viewBox="0 0 170 46" xmlns="http://www.w3.org/2000/svg">
+  <polyline points="44,34 65,24 80,30 100,12 118,20 148,6" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.5" style="stroke-dasharray:200;stroke-dashoffset:200;animation:drawLine 1.8s ease-out 1.2s forwards;"/>
+  <g id="starburst" style="opacity:0;">
+    <line id="ray-n"  x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.8" stroke-linecap="round"/>
+    <line id="ray-s"  x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.8" stroke-linecap="round"/>
+    <line id="ray-e"  x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.8" stroke-linecap="round"/>
+    <line id="ray-w"  x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.8" stroke-linecap="round"/>
+    <line id="ray-ne" x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.6" stroke-linecap="round" opacity="0.7"/>
+    <line id="ray-nw" x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.6" stroke-linecap="round" opacity="0.7"/>
+    <line id="ray-se" x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.6" stroke-linecap="round" opacity="0.7"/>
+    <line id="ray-sw" x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.6" stroke-linecap="round" opacity="0.7"/>
+  </g>
+  <g id="diamond-group" style="opacity:0;transition:opacity 0.15s ease-out;">
+    <polygon id="diamond-poly" points="148,2 152,6 148,10 144,6" fill="#C9A84C"/>
+  </g>
+  <text style="opacity:0;animation:fadeIn 0.2s ease-out 0.1s forwards;" x="44" y="30" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" letter-spacing="1">PINN<tspan fill="#C9A84C">A</tspan>CLE</text>
+  <line style="stroke-dasharray:100;stroke-dashoffset:100;animation:drawLine 0.8s ease-out 1.0s forwards;" x1="44" y1="35" x2="138" y2="35" stroke="#C9A84C" stroke-width="0.8"/>
+  <text style="opacity:0;animation:fadeIn 0.2s ease-out 0.2s forwards;" x="44" y="44" font-family="Arial, sans-serif" font-size="6" fill="#C9A84C" letter-spacing="3">CONTENT CO.</text>
+</svg>
   </div>
   <div class="nav-links">
     <a href="#services">Services</a>
@@ -1380,5 +1394,77 @@ Pinnacle Content Co. is a content marketing agency. All content produced is for 
     <p>Pinnacle Content Co. &mdash; Pinnaclecontentco@gmail.com</p>
   </div>
 </div>
+<script>
+  const DIAMOND_APPEAR = 2000;
+  const LINE_FINISH = 3000;
+  const SPIN_DURATION = 600;
+  const SPIN_INTERVAL = 4000;
+  const TWINKLE_DELAY = 2000;
+  const TWINKLE_IN = 1800;
+  const TWINKLE_OUT = 2200;
+  const RAY_LENGTH = 5;
+
+  function initLogo() {
+    const diamond = document.getElementById('diamond-group');
+    const poly = document.getElementById('diamond-poly');
+    setTimeout(() => { diamond.style.opacity = '1'; spinLoop(poly); }, DIAMOND_APPEAR);
+    setTimeout(() => twinkle(() => {}), LINE_FINISH);
+  }
+
+  function spinLoop(poly) {
+    let start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / SPIN_DURATION, 1);
+      poly.setAttribute('transform', `rotate(${p * 360}, 148, 6)`);
+      if (p < 1) { requestAnimationFrame(step); }
+      else {
+        poly.setAttribute('transform', 'rotate(0, 148, 6)');
+        setTimeout(() => twinkle(() => { setTimeout(() => spinLoop(poly), SPIN_INTERVAL); }), TWINKLE_DELAY);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function twinkle(onComplete) {
+    const starburst = document.getElementById('starburst');
+    const rays = {
+      n:  { el: document.getElementById('ray-n'),  dx: 0,    dy: -1   },
+      s:  { el: document.getElementById('ray-s'),  dx: 0,    dy: 1    },
+      e:  { el: document.getElementById('ray-e'),  dx: 1,    dy: 0    },
+      w:  { el: document.getElementById('ray-w'),  dx: -1,   dy: 0    },
+      ne: { el: document.getElementById('ray-ne'), dx: 0.7,  dy: -0.7 },
+      nw: { el: document.getElementById('ray-nw'), dx: -0.7, dy: -0.7 },
+      se: { el: document.getElementById('ray-se'), dx: 0.7,  dy: 0.7  },
+      sw: { el: document.getElementById('ray-sw'), dx: -0.7, dy: 0.7  }
+    };
+    const TOTAL = TWINKLE_IN + TWINKLE_OUT;
+    let start = null;
+    starburst.style.opacity = '1';
+    function step(ts) {
+      if (!start) start = ts;
+      const elapsed = ts - start;
+      const progress = Math.min(elapsed / TOTAL, 1);
+      let rp = elapsed < TWINKLE_IN
+        ? Math.pow(elapsed / TWINKLE_IN, 2)
+        : Math.max(1 - (elapsed - TWINKLE_IN) / TWINKLE_OUT, 0);
+      starburst.style.opacity = String(rp);
+      const len = rp * RAY_LENGTH;
+      Object.values(rays).forEach(r => {
+        r.el.setAttribute('x2', String(148 + r.dx * len));
+        r.el.setAttribute('y2', String(6 + r.dy * len));
+      });
+      if (progress < 1) { requestAnimationFrame(step); }
+      else {
+        starburst.style.opacity = '0';
+        Object.values(rays).forEach(r => { r.el.setAttribute('x2','148'); r.el.setAttribute('y2','6'); });
+        if (onComplete) onComplete();
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  initLogo();
+</script>
 </body>
 </html>
