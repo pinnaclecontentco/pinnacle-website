@@ -1436,7 +1436,21 @@ function initLogo() {
   const diamond = document.getElementById('diamond-group');
   const poly = document.getElementById('diamond-poly');
   setTimeout(() => { diamond.style.opacity = '1'; spinLoop(poly); }, DIAMOND_APPEAR);
-  setTimeout(() => { const line = document.getElementById('logo-line'); line.style.transition = 'filter 0.3s ease'; line.style.filter = 'drop-shadow(0 0 3px #C9A84C)'; setTimeout(() => { line.style.filter = 'none'; }, 600); }, 3100);
+  setTimeout(() => {
+  const line = document.getElementById('logo-line');
+  const colors = ['#C9A84C', '#FFFFFF'];
+  let i = 0;
+  function pulse() {
+    line.style.transition = 'filter 0.4s ease';
+    line.style.filter = `drop-shadow(0 0 4px ${colors[i % 2]})`;
+    i++;
+    setTimeout(() => {
+      line.style.filter = 'none';
+      setTimeout(pulse, 800);
+    }, 600);
+  }
+  pulse();
+}, 3100);
 }
 
 function spinLoop(poly) {
