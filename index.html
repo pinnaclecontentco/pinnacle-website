@@ -718,7 +718,7 @@
 <nav>
   <div class="logo">
    <svg id="pinnacle-logo" width="170" height="46" viewBox="0 0 170 46" xmlns="http://www.w3.org/2000/svg">
-  <polyline points="44,34 65,24 80,30 100,12 118,20 148,6" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.5" style="stroke-dasharray:200;stroke-dashoffset:200;animation:drawLine 1.8s ease-out 1.2s forwards;"/>
+  <polyline points="44,34 65,24 80,30 100,12 118,20 148,6" id="logo-line"fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.5" style="stroke-dasharray:200;stroke-dashoffset:200;animation:drawLine 1.8s ease-out 1.2s forwards;"/>
   <g id="starburst" style="opacity:0;">
     <line id="ray-n"  x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.8" stroke-linecap="round"/>
     <line id="ray-s"  x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.8" stroke-linecap="round"/>
@@ -1435,6 +1435,7 @@ function initLogo() {
   const diamond = document.getElementById('diamond-group');
   const poly = document.getElementById('diamond-poly');
   setTimeout(() => { diamond.style.opacity = '1'; spinLoop(poly); }, DIAMOND_APPEAR);
+  setTimeout(() => { const line = document.getElementById('logo-line'); line.style.transition = 'filter 0.3s ease'; line.style.filter = 'drop-shadow(0 0 3px #C9A84C)'; setTimeout(() => { line.style.filter = 'none'; }, 600); }, 3100);
 }
 
 function spinLoop(poly) {
