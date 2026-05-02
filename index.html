@@ -1429,7 +1429,8 @@ const SPIN_INTERVAL_MIN = 3000;
 const SPIN_INTERVAL_MAX = 7000;
 const TWINKLE_DELAY = 25;
 const TWINKLE_OUT = 2200;
-const RAY_LENGTH = 5;
+const RAY_LENGTH_CARDINAL = 6;
+const RAY_LENGTH_DIAGONAL = 3.5;
 
 function initLogo() {
   const diamond = document.getElementById('diamond-group');
@@ -1456,20 +1457,20 @@ function spinLoop(poly) {
 function twinkle(onComplete) {
   const starburst = document.getElementById('starburst');
   const rays = {
-    n:  { el: document.getElementById('ray-n'),  dx: 0,    dy: -1   },
-    s:  { el: document.getElementById('ray-s'),  dx: 0,    dy: 1    },
-    e:  { el: document.getElementById('ray-e'),  dx: 1,    dy: 0    },
-    w:  { el: document.getElementById('ray-w'),  dx: -1,   dy: 0    },
-    ne: { el: document.getElementById('ray-ne'), dx: 0.7,  dy: -0.7 },
-    nw: { el: document.getElementById('ray-nw'), dx: -0.7, dy: -0.7 },
-    se: { el: document.getElementById('ray-se'), dx: 0.7,  dy: 0.7  },
-    sw: { el: document.getElementById('ray-sw'), dx: -0.7, dy: 0.7  }
-  };
+  n:  { el: document.getElementById('ray-n'),  dx: 0,    dy: -1,   len: RAY_LENGTH_CARDINAL },
+  s:  { el: document.getElementById('ray-s'),  dx: 0,    dy: 1,    len: RAY_LENGTH_CARDINAL },
+  e:  { el: document.getElementById('ray-e'),  dx: 1,    dy: 0,    len: RAY_LENGTH_CARDINAL },
+  w:  { el: document.getElementById('ray-w'),  dx: -1,   dy: 0,    len: RAY_LENGTH_CARDINAL },
+  ne: { el: document.getElementById('ray-ne'), dx: 0.7,  dy: -0.7, len: RAY_LENGTH_DIAGONAL },
+  nw: { el: document.getElementById('ray-nw'), dx: -0.7, dy: -0.7, len: RAY_LENGTH_DIAGONAL },
+  se: { el: document.getElementById('ray-se'), dx: 0.7,  dy: 0.7,  len: RAY_LENGTH_DIAGONAL },
+  sw: { el: document.getElementById('ray-sw'), dx: -0.7, dy: 0.7,  len: RAY_LENGTH_DIAGONAL }
+};
 
   // Fire instantly at full size — no ease-in
   Object.values(rays).forEach(r => {
-    r.el.setAttribute('x2', String(148 + r.dx * RAY_LENGTH));
-    r.el.setAttribute('y2', String(6 + r.dy * RAY_LENGTH));
+    r.el.setAttribute('x2', String(148 + r.dx * r.len));
+r.el.setAttribute('y2', String(6 + r.dy * r.len));
   });
   starburst.style.opacity = '1';
 
