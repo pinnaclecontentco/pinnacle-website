@@ -1467,12 +1467,16 @@ function twinkle(onComplete) {
   sw: { el: document.getElementById('ray-sw'), dx: -0.7, dy: 0.7,  len: RAY_LENGTH_DIAGONAL }
 };
 
-  // Fire instantly at full size — no ease-in
-  Object.values(rays).forEach(r => {
+  // Fire with slight stagger per ray — organic feel
+starburst.style.opacity = '1';
+Object.values(rays).forEach(r => {
+  const delay = Math.random() * 80;
+  setTimeout(() => {
     r.el.setAttribute('x2', String(148 + r.dx * r.len));
-r.el.setAttribute('y2', String(6 + r.dy * r.len));
-  });
-  starburst.style.opacity = '1';
+    r.el.setAttribute('y2', String(6 + r.dy * r.len));
+  }, delay);
+});
+
 
   let start = null;
   function step(ts) {
