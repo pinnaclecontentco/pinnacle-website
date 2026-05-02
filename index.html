@@ -1425,7 +1425,8 @@ Pinnacle Content Co. is a content marketing agency. All content produced is for 
 <script>
 const DIAMOND_APPEAR = 2000;
 const SPIN_DURATION = 600;
-const SPIN_INTERVAL = 4000;
+const SPIN_INTERVAL_MIN = 3000;
+const SPIN_INTERVAL_MAX = 7000;
 const TWINKLE_DELAY = 25;
 const TWINKLE_OUT = 2200;
 const RAY_LENGTH = 5;
@@ -1444,8 +1445,8 @@ function spinLoop(poly) {
     poly.setAttribute('transform', `rotate(${p * 360}, 148, 6)`);
     if (p < 1) { requestAnimationFrame(step); }
     else {
-      poly.setAttribute('transform', 'rotate(0, 148, 6)');
-      setTimeout(() => twinkle(() => { setTimeout(() => spinLoop(poly), SPIN_INTERVAL); }), TWINKLE_DELAY);
+      const interval = SPIN_INTERVAL_MIN + Math.random() * (SPIN_INTERVAL_MAX - SPIN_INTERVAL_MIN);
+      setTimeout(() => twinkle(() => { setTimeout(() => spinLoop(poly), interval); }), TWINKLE_DELAY);
     }
   }
   requestAnimationFrame(step);
