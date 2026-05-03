@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Onboarding — Pinnacle Content Co.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #0D1B2A;
+      --navy-mid: #162236;
+      --gold:     #C9A84C;
+      --gold-dim: rgba(201,168,76,0.15);
+      --cream:    #F5F0E8;
+      --slate:    #8A9BB0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--navy);
+      color: var(--cream);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+    }
+
+    /* ── background texture ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201,168,76,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.18);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .nav-logo svg { height: 32px; width: auto; }
+
+    .nav-back {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--gold); }
+
+    /* ── hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      color: var(--slate);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* ── gold divider ── */
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 3rem;
+      opacity: 0.5;
+    }
+
+    /* ── steps bar ── */
+    .steps {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 1;
+      padding: 0 2rem;
+      flex-wrap: wrap;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    .step-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid var(--slate);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    .step.active { color: var(--gold); }
+    .step.active .step-num {
+      border-color: var(--gold);
+      background: var(--gold-dim);
+      color: var(--gold);
+    }
+
+    /* ── form card ── */
+    .form-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto 5rem;
+      padding: 0 1.5rem;
+    }
+
+    .form-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 4px;
+      padding: 2.5rem 2.5rem 1rem;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.05) inset;
+    }
+
+    .form-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+
+    .form-card-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .form-card-icon svg { width: 16px; height: 16px; }
+
+    .form-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+
+    .form-card-sub {
+      font-size: 0.78rem;
+      color: var(--slate);
+      margin-top: 0.2rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── tally iframe ── */
+    .tally-wrap {
+      min-height: 400px;
+      background: transparent;
+    }
+
+    .tally-wrap iframe {
+      display: block;
+      background: transparent !important;
+      color-scheme: dark;
+    }
+
+    /* ── footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      font-size: 0.72rem;
+      color: var(--slate);
+      letter-spacing: 0.06em;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── fade-in on load ── */
+    .hero, .steps, .form-wrap {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .steps  { animation-delay: 0.15s; }
+    .form-wrap { animation-delay: 0.28s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 600px) {
+      .form-card { padding: 1.5rem 1.2rem 0.5rem; }
+      .hero { padding: 3rem 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <!-- Inline SVG logo matching site -->
+      <svg id="pinnacle-logo" width="120" height="32" viewBox="0 -14 170 60" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="44,34 65,24 80,30 100,12 118,20 148,6" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+        <g id="starburst-ob" style="opacity:0;">
+          <line id="ob-ray-n"  x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.8" stroke-linecap="round"/>
+          <line id="ob-ray-s"  x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.8" stroke-linecap="round"/>
+          <line id="ob-ray-e"  x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.8" stroke-linecap="round"/>
+          <line id="ob-ray-w"  x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.8" stroke-linecap="round"/>
+          <line id="ob-ray-ne" x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.6" stroke-linecap="round" opacity="0.7"/>
+          <line id="ob-ray-nw" x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.6" stroke-linecap="round" opacity="0.7"/>
+          <line id="ob-ray-se" x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.6" stroke-linecap="round" opacity="0.7"/>
+          <line id="ob-ray-sw" x1="148" y1="6" x2="148" y2="6" stroke="#F0D878" stroke-width="0.6" stroke-linecap="round" opacity="0.7"/>
+        </g>
+        <polygon id="ob-diamond-poly" points="148,0 152,6 148,12 144,6" fill="#C9A84C" transform="rotate(0,148,6)"/>
+        <text x="44" y="30" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" letter-spacing="1">PINN<tspan fill="#C9A84C">A</tspan>CLE</text>
+        <text x="44" y="44" font-family="Arial, sans-serif" font-size="6" fill="#C9A84C" letter-spacing="3">CONTENT CO.</text>
+      </svg>
+    </a>
+    <a href="/" class="nav-back">← Back to site</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">New Client Onboarding</p>
+    <h1 class="hero-title">Let's build something<br><em>worth trusting.</em></h1>
+    <p class="hero-sub">This form helps us understand your firm, your voice, and your goals — so we can create content that earns the confidence of your clients from day one.</p>
+    <div class="divider"></div>
+  </section>
+
+  <!-- STEPS -->
+  <div class="steps">
+    <div class="step active">
+      <div class="step-num">1</div>
+      <span>Your Firm</span>
+    </div>
+    <div class="step active">
+      <div class="step-num">2</div>
+      <span>Your Voice</span>
+    </div>
+    <div class="step active">
+      <div class="step-num">3</div>
+      <span>Your Goals</span>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-wrap">
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="form-card-icon">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 4h12M2 8h8M2 12h5" stroke="#C9A84C" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="form-card-title">Client Onboarding Questionnaire</div>
+          <div class="form-card-sub">15 questions · Takes about 10 minutes</div>
+        </div>
+      </div>
+      <div class="tally-wrap">
+        <iframe data-tally-src="https://tally.so/embed/44Px9k?alignLeft=1&hideTitle=1&dynamicHeight=1" loading="lazy" width="100%" height="1684" frameborder="0" marginheight="0" marginwidth="0" title="Pinnacle Content Co. — Client Onboarding"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Pinnacle Content Co. &nbsp;·&nbsp; <a href="mailto:kevin@pinnaclecontentco.com">kevin@pinnaclecontentco.com</a> &nbsp;·&nbsp; <a href="/">pinnaclecontentco.com</a></p>
+  </footer>
+
+  <!-- TALLY EMBED SCRIPT -->
+  <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+</body>
+</html>
