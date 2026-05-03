@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sample Work — Pinnacle Content Co.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #0D1B2A;
+      --navy-mid: #162236;
+      --gold:     #C9A84C;
+      --gold-dim: rgba(201,168,76,0.15);
+      --cream:    #F5F0E8;
+      --slate:    #8A9BB0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--navy);
+      color: var(--cream);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201,168,76,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.18);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .nav-logo svg { height: 32px; width: auto; }
+
+    .nav-back {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--gold); }
+
+    /* ── hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title em { font-style: italic; color: var(--gold); }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      color: var(--slate);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 4rem;
+      opacity: 0.5;
+    }
+
+    /* ── sample tabs ── */
+    .tabs {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+      padding: 0 2rem;
+    }
+
+    .tab {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--slate);
+      background: transparent;
+      border: 1px solid rgba(138,155,176,0.3);
+      border-radius: 2px;
+      padding: 0.45rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .tab:hover { color: var(--cream); border-color: rgba(201,168,76,0.4); }
+    .tab.active { color: var(--gold); border-color: var(--gold); background: rgba(201,168,76,0.06); }
+
+    /* ── sample content ── */
+    .samples {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto 5rem;
+      padding: 0 1.5rem;
+    }
+
+    .sample { display: none; }
+    .sample.active { display: block; }
+
+    .sample-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+    }
+
+    .sample-meta {
+      padding: 1.5rem 2.5rem;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .sample-type {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 2px;
+      padding: 0.25rem 0.65rem;
+    }
+
+    .sample-stats {
+      font-size: 0.75rem;
+      color: var(--slate);
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .sample-body {
+      padding: 2.5rem;
+    }
+
+    .sample-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .sample-body p {
+      font-size: 0.92rem;
+      color: rgba(245,240,232,0.85);
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+
+    .sample-body h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin: 2rem 0 0.8rem;
+    }
+
+    .sample-body h3 {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      margin: 1.5rem 0 0.5rem;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+    }
+
+    .sample-body ul {
+      list-style: none;
+      margin: 0.5rem 0 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .sample-body ul li {
+      font-size: 0.92rem;
+      color: rgba(245,240,232,0.85);
+      line-height: 1.7;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .sample-body ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6rem;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
+    .sample-cta {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(201,168,76,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .sample-cta p {
+      font-size: 0.82rem !important;
+      color: var(--slate) !important;
+      margin: 0 !important;
+      line-height: 1.5 !important;
+    }
+
+    .sample-cta p strong {
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    /* LinkedIn post styling */
+    .linkedin-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+    }
+
+    .linkedin-header {
+      padding: 1.5rem 2.5rem;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .linkedin-profile {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .linkedin-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .linkedin-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--cream);
+    }
+
+    .linkedin-title {
+      font-size: 0.75rem;
+      color: var(--slate);
+      margin-top: 0.1rem;
+    }
+
+    .linkedin-body {
+      padding: 2rem 2.5rem;
+    }
+
+    .linkedin-body p {
+      font-size: 0.92rem;
+      color: rgba(245,240,232,0.85);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    .linkedin-body p:last-child { margin-bottom: 0; }
+
+    .linkedin-engagement {
+      padding: 1rem 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--slate);
+    }
+
+    /* ── CTA ── */
+    .cta-wrap {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 2rem 6rem;
+    }
+
+    .cta-wrap h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .cta-wrap h2 em { font-style: italic; color: var(--gold); }
+
+    .cta-wrap p {
+      font-size: 0.9rem;
+      color: var(--slate);
+      margin-bottom: 2rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2.5rem;
+      border-radius: 2px;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover { opacity: 0.85; }
+
+    /* ── footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      font-size: 0.72rem;
+      color: var(--slate);
+      letter-spacing: 0.06em;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    .hero, .tabs, .samples, .cta-wrap {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .tabs    { animation-delay: 0.1s; }
+    .samples { animation-delay: 0.2s; }
+    .cta-wrap { animation-delay: 0.3s; }
+
+    @keyframes fadeUp { to { opacity: 1; transform: none; } }
+
+    @media (max-width: 600px) {
+      .sample-body { padding: 1.5rem; }
+      .sample-meta { padding: 1rem 1.5rem; }
+      .linkedin-body { padding: 1.5rem; }
+      .linkedin-header { padding: 1rem 1.5rem; }
+      .hero { padding: 3rem 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <svg width="120" height="32" viewBox="0 -14 170 60" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="44,34 65,24 80,30 100,12 118,20 148,6" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+        <polygon points="148,0 152,6 148,12 144,6" fill="#C9A84C"/>
+        <text x="44" y="30" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" letter-spacing="1">PINN<tspan fill="#C9A84C">A</tspan>CLE</text>
+        <text x="44" y="44" font-family="Arial, sans-serif" font-size="6" fill="#C9A84C" letter-spacing="3">CONTENT CO.</text>
+      </svg>
+    </a>
+    <a href="/" class="nav-back">← Back to site</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Sample Work</p>
+    <h1 class="hero-title">This is what your<br><em>content looks like.</em></h1>
+    <p class="hero-sub">Every piece we write is researched, accurate, and built for the clients you're trying to reach. See for yourself.</p>
+    <div class="divider"></div>
+  </section>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="showSample('blog1')">Blog Post — Trust</button>
+    <button class="tab" onclick="showSample('blog2')">Blog Post — Marketing</button>
+    <button class="tab" onclick="showSample('linkedin')">LinkedIn Post</button>
+  </div>
+
+  <!-- SAMPLES -->
+  <div class="samples">
+
+    <!-- BLOG 1 -->
+    <div class="sample active" id="sample-blog1">
+      <div class="sample-card">
+        <div class="sample-meta">
+          <span class="sample-type">Blog Post · SEO</span>
+          <div class="sample-stats">
+            <span>~950 words</span>
+            <span>Trust Builder</span>
+            <span>General Audience</span>
+          </div>
+        </div>
+        <div class="sample-body">
+          <h1 class="sample-title">What to Look for in a CPA — And Why It Matters More Than You Think</h1>
+
+          <p>Choosing an accountant feels like it should be simple. You need someone who knows the tax code, files accurately, and doesn't cost a fortune. But for most business owners and individuals who have been through a frustrating experience with a CPA, the selection process is more nuanced than it first appears.</p>
+
+          <p>The right CPA doesn't just file your returns. They become one of the most important professional relationships in your financial life — someone who understands your situation well enough to ask the right questions before you even know what to ask. The wrong one can cost you far more than their fee.</p>
+
+          <p>Here is what to look for when evaluating a CPA — and what the answers will tell you.</p>
+
+          <h2>Specialization That Matches Your Situation</h2>
+
+          <p>CPA is a credential, not a specialty. Accountants can work in audit, forensic accounting, corporate finance, tax planning, small business advisory, estate planning, and dozens of other areas — and most develop a particular depth in one or two of them.</p>
+
+          <p>Before you hire anyone, ask directly: what does the majority of your client base look like? A CPA who works primarily with real estate investors will bring different instincts to a technology startup than one who has spent fifteen years working with entrepreneurs and small business owners. Neither is better in the abstract — but one is almost certainly better for you.</p>
+
+          <h2>Communication You Can Actually Count On</h2>
+
+          <p>The most technically skilled CPA in the world is less valuable if they are impossible to reach when you need them. Before tax season is not the time to discover that your accountant takes three weeks to return emails.</p>
+
+          <p>Ask every CPA you interview how they prefer to communicate, what their typical response time looks like, and how they handle urgent questions. A direct, honest answer is a good sign. Vague reassurances are not.</p>
+
+          <p>Pay attention to the initial interaction too. If it is difficult to get a first appointment, or if the intake process feels disorganized, that is useful information about what the ongoing relationship will look like.</p>
+
+          <h2>Proactive Thinking, Not Just Reactive Filing</h2>
+
+          <p>There is a meaningful difference between a CPA who files accurately and one who thinks ahead. The former handles what happened. The latter helps you think about what is coming.</p>
+
+          <p>Ask potential CPAs whether they typically reach out to clients during the year — not just at tax time. Ask how they stay current with changes that might affect your situation. Ask whether they have ever flagged something for a client that the client had not thought to bring up.</p>
+
+          <p>The answers will tell you whether you are looking at a transactional relationship or an advisory one.</p>
+
+          <h2>Transparency About Fees</h2>
+
+          <p>Fee structures in the accounting industry vary widely. Some CPAs charge hourly. Others charge flat fees for defined scopes of work. Some have minimums. Some include unlimited questions in their engagement and some bill for every phone call.</p>
+
+          <p>None of these models is inherently better than another — but you should understand exactly what you are agreeing to before you sign anything. Ask for a clear explanation of how you will be billed, what is included, and what would trigger an additional charge. A CPA who is uncomfortable having this conversation clearly is not the right fit.</p>
+
+          <h2>A Genuine Fit</h2>
+
+          <p>This last point is harder to quantify but just as important. You are going to share detailed financial information with this person — your income, your debts, your business decisions, sometimes your mistakes. The relationship works better when there is a basic level of comfort and trust.</p>
+
+          <p>Pay attention to whether the CPA seems genuinely interested in your situation or is moving through a checklist. Notice whether they explain things in a way that makes sense to you, or whether they lean on jargon that leaves you more confused than when you started.</p>
+
+          <p>The technical qualifications matter. So does how the relationship actually feels.</p>
+
+          <h2>The Bottom Line</h2>
+
+          <p>A good CPA is not just someone who keeps you compliant. They are a professional who understands your financial picture well enough to be genuinely useful — not once a year, but throughout it. Take the time to find one who fits, and the relationship will pay for itself many times over.</p>
+
+          <p>If you have questions about what working with our firm looks like, we are happy to talk through it. No pressure, no obligation — just a straightforward conversation.</p>
+
+          <div class="sample-cta">
+            <p><strong>This post was written by Pinnacle Content Co.</strong><br>Finance-specific content for CPAs and regulated industries.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOG 2 -->
+    <div class="sample" id="sample-blog2">
+      <div class="sample-card">
+        <div class="sample-meta">
+          <span class="sample-type">Blog Post · Industry</span>
+          <div class="sample-stats">
+            <span>~850 words</span>
+            <span>Authority Builder</span>
+            <span>CPA Audience</span>
+          </div>
+        </div>
+        <div class="sample-body">
+          <h1 class="sample-title">Why Your CPA Firm Needs a Digital Presence — And What Happens When You Don't Have One</h1>
+
+          <p>Most CPA firms built their client base the same way: referrals, relationships, and reputation built over years of consistent work. It is a model that has worked well — and still does. But something has shifted in how potential clients evaluate professional service firms before they ever make contact, and the change is worth paying attention to.</p>
+
+          <p>Today, most people who receive a referral to a CPA firm will search that firm online before they call. What they find — or do not find — shapes the conversation before it begins.</p>
+
+          <h2>The Search Has Already Started</h2>
+
+          <p>Consider what your ideal client does when they decide they need a CPA. Maybe a colleague mentioned your name. Maybe they searched for firms in your area. Either way, within a few minutes they are looking at your website, or looking for one and not finding it.</p>
+
+          <p>A firm with no digital presence — or a thin one — sends a signal, even when that signal is unintentional. It suggests the firm may be smaller than it is, less active than it is, or less sophisticated than it is. None of those impressions are necessarily accurate. But perception shapes decisions, and the absence of content creates space for doubt.</p>
+
+          <h2>Content Builds the Trust That Referrals Start</h2>
+
+          <p>A referral is an introduction. It opens the door. But the client still needs a reason to walk through it — and consistent, well-written content gives them one.</p>
+
+          <p>When a potential client reads a blog post your firm published on a topic relevant to their situation, something happens that a referral alone cannot accomplish: they begin to understand how you think. They see how you explain complex ideas. They get a sense of your values, your communication style, and whether you seem like someone they would want to work with.</p>
+
+          <p>This happens before any conversation takes place. And it makes that first conversation significantly easier.</p>
+
+          <h2>Search Visibility Is a Long-Term Asset</h2>
+
+          <p>Beyond referrals, there is a second channel that consistent content builds over time: organic search. When potential clients search for answers to financial questions — and they do, constantly — firms with published content on those topics appear. Firms without it do not.</p>
+
+          <p>This is not about chasing rankings or gaming algorithms. It is about being present when someone is actively looking for what you offer. A well-written post on a topic your clients commonly ask about can generate inquiries for years after it was published, with no additional effort on your part.</p>
+
+          <h2>Your Competitors Are Already Doing This</h2>
+
+          <p>The firms in your market that have invested in content are not just building their own visibility — they are capturing attention that might otherwise have come to you. Every month without a published presence is a month of ground given up.</p>
+
+          <p>This is not meant to be alarmist. Most CPA firms are not aggressive content marketers, which means the opportunity for those who do engage consistently is still significant. But the window narrows as more firms recognize the value.</p>
+
+          <h2>The Practical Reality</h2>
+
+          <p>Most CPAs do not publish content consistently because they do not have time, because writing does not come naturally, or because the technical demands of client work leave little room for anything else. This is completely understandable — and it is exactly the problem that content marketing agencies exist to solve.</p>
+
+          <p>The firms that are building strong digital presences are not necessarily doing the writing themselves. They have found a way to get consistent, accurate, professionally written content published under their name — without adding to their own workload.</p>
+
+          <p>That is the model that works. And it is more accessible than most firms assume.</p>
+
+          <div class="sample-cta">
+            <p><strong>This post was written by Pinnacle Content Co.</strong><br>Finance-specific content for CPAs and regulated industries.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LINKEDIN -->
+    <div class="sample" id="sample-linkedin">
+      <div class="linkedin-card">
+        <div class="linkedin-header">
+          <div class="linkedin-profile">
+            <div class="linkedin-avatar">K</div>
+            <div>
+              <div class="linkedin-name">Kevin — Pinnacle Content Co.</div>
+              <div class="linkedin-title">Content Marketing for CPAs & Financial Professionals</div>
+            </div>
+          </div>
+          <span class="sample-type">LinkedIn Post</span>
+        </div>
+        <div class="linkedin-body">
+          <p>Most CPA firms lose potential clients before the first conversation ever happens.</p>
+          <p>Not because of pricing. Not because of location. Because the prospect searched online, found nothing useful, and moved on.</p>
+          <p>A referral opens the door. Content is what makes them walk through it.</p>
+          <p>When a potential client reads something your firm published — something that actually answers a question they have been carrying around — they arrive at that first call already halfway convinced. They know how you think. They know you can explain things clearly. They know you understand their world.</p>
+          <p>That is what consistent content does. It does the trust-building before you are in the room.</p>
+          <p>If your firm is not publishing regularly, you are not invisible. You are leaving the impression that comes with silence.</p>
+          <p>That impression is almost never the one you want.</p>
+        </div>
+        <div class="linkedin-engagement">
+          <span>👍 Reaction</span>
+          <span>💬 Comment</span>
+          <span>🔁 Repost</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <h2>Want content like this<br><em>for your firm?</em></h2>
+    <p>Book a free 30-minute strategy call. We will talk through your goals and show you exactly what a content plan for your firm would look like.</p>
+    <a href="/strategy" class="btn-primary">Request Your Free Strategy Call</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Pinnacle Content Co. &nbsp;·&nbsp; <a href="mailto:kevin@pinnaclecontentco.com">kevin@pinnaclecontentco.com</a> &nbsp;·&nbsp; <a href="/">pinnaclecontentco.com</a></p>
+  </footer>
+
+  <script>
+    function showSample(id) {
+      document.querySelectorAll('.sample').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('sample-' + id).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
