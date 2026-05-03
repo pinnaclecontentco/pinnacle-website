@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Pinnacle Content Co.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #0D1B2A;
+      --navy-mid: #162236;
+      --gold:     #C9A84C;
+      --gold-dim: rgba(201,168,76,0.15);
+      --cream:    #F5F0E8;
+      --slate:    #8A9BB0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--navy);
+      color: var(--cream);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201,168,76,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.18);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .nav-logo svg { height: 32px; width: auto; }
+
+    .nav-back {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--gold); }
+
+    /* ── hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title em { font-style: italic; color: var(--gold); }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 4rem;
+      opacity: 0.5;
+    }
+
+    /* ── story ── */
+    .story {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+    }
+
+    .story p {
+      font-size: 1rem;
+      color: rgba(245,240,232,0.85);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .story p:last-child { margin-bottom: 0; }
+
+    .story em {
+      font-style: italic;
+      color: var(--cream);
+    }
+
+    .story strong {
+      color: var(--cream);
+      font-weight: 500;
+    }
+
+    .pull-quote {
+      position: relative;
+      margin: 3rem 0;
+      padding: 2rem 2.5rem;
+      border-left: 2px solid var(--gold);
+      background: rgba(201,168,76,0.04);
+    }
+
+    .pull-quote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 3vw, 1.7rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.4;
+      margin: 0 !important;
+    }
+
+    /* ── credentials ── */
+    .credentials {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto 5rem;
+      padding: 0 1.5rem;
+    }
+
+    .credentials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .cred-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 4px;
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+    }
+
+    .cred-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .cred-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      line-height: 1.4;
+    }
+
+    /* ── values ── */
+    .values {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto 5rem;
+      padding: 0 1.5rem;
+    }
+
+    .values-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .values-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(201,168,76,0.2);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .value-item {
+      background: var(--navy-mid);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 4px;
+      padding: 1.75rem;
+    }
+
+    .value-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.6rem;
+    }
+
+    .value-desc {
+      font-size: 0.85rem;
+      color: var(--slate);
+      line-height: 1.7;
+    }
+
+    /* ── CTA ── */
+    .cta-wrap {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 2rem 6rem;
+    }
+
+    .cta-wrap h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .cta-wrap h2 em { font-style: italic; color: var(--gold); }
+
+    .cta-wrap p {
+      font-size: 0.9rem;
+      color: var(--slate);
+      margin-bottom: 2rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2.5rem;
+      border-radius: 2px;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover { opacity: 0.85; }
+
+    /* ── footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      font-size: 0.72rem;
+      color: var(--slate);
+      letter-spacing: 0.06em;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    .hero, .story, .credentials, .values, .cta-wrap {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .story       { animation-delay: 0.1s; }
+    .credentials { animation-delay: 0.2s; }
+    .values      { animation-delay: 0.25s; }
+    .cta-wrap    { animation-delay: 0.3s; }
+
+    @keyframes fadeUp { to { opacity: 1; transform: none; } }
+
+    @media (max-width: 600px) {
+      .hero { padding: 3rem 1.5rem 2rem; }
+      .credentials-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .values-grid { grid-template-columns: 1fr; }
+      .pull-quote { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <svg width="120" height="32" viewBox="0 -14 170 60" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="44,34 65,24 80,30 100,12 118,20 148,6" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+        <polygon points="148,0 152,6 148,12 144,6" fill="#C9A84C"/>
+        <text x="44" y="30" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" letter-spacing="1">PINN<tspan fill="#C9A84C">A</tspan>CLE</text>
+        <text x="44" y="44" font-family="Arial, sans-serif" font-size="6" fill="#C9A84C" letter-spacing="3">CONTENT CO.</text>
+      </svg>
+    </a>
+    <a href="/" class="nav-back">← Back to site</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">About</p>
+    <h1 class="hero-title">Built from the inside<br><em>of the industry.</em></h1>
+    <div class="divider"></div>
+  </section>
+
+  <!-- STORY -->
+  <div class="story">
+    <p>Most people who start content agencies come from marketing. They learn the tools, build the systems, and eventually figure out that financial services is a lucrative niche. They study up. They get comfortable with the vocabulary. And they produce content that is technically adequate and fundamentally generic.</p>
+
+    <p>Pinnacle Content Co. was built differently.</p>
+
+    <p>The founder has been an investor since high school — not as a hobby, but as a genuine obsession with how markets work, how money moves, and what separates financial professionals who build lasting client trust from those who do not. That interest led to half a decade of professional experience across two leading firms in the industry, working inside the world that financial professionals — CPAs, advisors, and the firms that serve them — inhabit every day.</p>
+
+    <div class="pull-quote">
+      <p>"I noticed the gap in my own life. There was content I wanted to create — ideas worth sharing, things clients genuinely needed to hear — and no time to create it. I kept meeting people with the same problem. So I built the solution."</p>
+    </div>
+
+    <p>The problem is not that financial professionals lack expertise. It is that expertise and bandwidth rarely exist in the same place at the same time. The CPAs and advisors who are good enough to build a strong digital presence are usually too busy building their practice to do it.</p>
+
+    <p>Pinnacle exists to close that gap. Every piece of content we produce is written with genuine understanding of the industry — the compliance environment, the client relationships, the way financial professionals actually think and communicate. Not learned from the outside. Known from the inside.</p>
+
+    <p>This is not a marketing agency that happens to serve finance. It is a finance-native content operation built for CPAs, financial advisors, and regulated professionals — <em>built sellable from day one</em>, run with the same discipline and documentation we encourage our clients to bring to their own practices.</p>
+
+    <p>Based in Texas. Serving firms nationwide.</p>
+  </div>
+
+  <!-- CREDENTIALS -->
+  <div class="credentials">
+    <div class="credentials-grid">
+      <div class="cred-card">
+        <div class="cred-num">5+</div>
+        <div class="cred-label">Years of Professional Industry Experience</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-num">2</div>
+        <div class="cred-label">Leading Financial Firms in Background</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-num">0</div>
+        <div class="cred-label">Generalist Writers on the Team</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VALUES -->
+  <div class="values">
+    <div class="values-label">What We Believe</div>
+    <div class="values-grid">
+      <div class="value-item">
+        <div class="value-title">Accuracy is non-negotiable</div>
+        <div class="value-desc">Content that gets the details wrong does not just miss — it damages trust in the exact audience you are trying to build it with. We write accurately or we do not publish.</div>
+      </div>
+      <div class="value-item">
+        <div class="value-title">Compliance is built in, not bolted on</div>
+        <div class="value-desc">Every piece is framed as general educational content — not advice. Disclaimers are not an afterthought. We understand the environment your firm operates in because we have operated in it.</div>
+      </div>
+      <div class="value-item">
+        <div class="value-title">Your voice, not ours</div>
+        <div class="value-desc">Ghostwriting works when it sounds like you — your instincts, your communication style, your perspective. We disappear into the work. The content should feel like you wrote it on your best day.</div>
+      </div>
+      <div class="value-item">
+        <div class="value-title">Systems over scrambling</div>
+        <div class="value-desc">Consistent content requires a consistent process. Every client goes through the same documented workflow — onboarding, calendar approval, delivery, review, check-in. No surprises, no dropped balls.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <h2>Ready to work with someone<br><em>who gets it?</em></h2>
+    <p>Book a free 30-minute strategy call. No pitch, no pressure — just a straight conversation about your firm's content.</p>
+    <a href="/strategy" class="btn-primary">Request Your Free Strategy Call</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Pinnacle Content Co. &nbsp;·&nbsp; <a href="mailto:kevin@pinnaclecontentco.com">kevin@pinnaclecontentco.com</a> &nbsp;·&nbsp; <a href="/">pinnaclecontentco.com</a></p>
+  </footer>
+
+</body>
+</html>

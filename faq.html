@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — Pinnacle Content Co.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #0D1B2A;
+      --navy-mid: #162236;
+      --gold:     #C9A84C;
+      --gold-dim: rgba(201,168,76,0.15);
+      --cream:    #F5F0E8;
+      --slate:    #8A9BB0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--navy);
+      color: var(--cream);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201,168,76,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.18);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .nav-logo svg { height: 32px; width: auto; }
+
+    .nav-back {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--gold); }
+
+    /* ── hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title em { font-style: italic; color: var(--gold); }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      color: var(--slate);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 4rem;
+      opacity: 0.5;
+    }
+
+    /* ── faq sections ── */
+    .faq-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin: 0 auto 6rem;
+      padding: 0 1.5rem;
+    }
+
+    .faq-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .faq-section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .faq-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(201,168,76,0.2);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .faq-item:first-of-type {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: transparent;
+      border: none;
+      text-align: left;
+      padding: 1.3rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--cream);
+      transition: color 0.2s;
+    }
+
+    .faq-question:hover { color: var(--gold); }
+
+    .faq-icon {
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      color: var(--gold);
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-icon {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 600px;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 1.3rem;
+      font-size: 0.88rem;
+      color: rgba(245,240,232,0.75);
+      line-height: 1.85;
+    }
+
+    .faq-answer-inner p { margin-bottom: 0.75rem; }
+    .faq-answer-inner p:last-child { margin-bottom: 0; }
+    .faq-answer-inner strong { color: var(--cream); font-weight: 500; }
+
+    /* ── CTA ── */
+    .cta-wrap {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 2rem 6rem;
+    }
+
+    .cta-wrap h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .cta-wrap h2 em { font-style: italic; color: var(--gold); }
+
+    .cta-wrap p {
+      font-size: 0.9rem;
+      color: var(--slate);
+      margin-bottom: 2rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2.5rem;
+      border-radius: 2px;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover { opacity: 0.85; }
+
+    /* ── footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      font-size: 0.72rem;
+      color: var(--slate);
+      letter-spacing: 0.06em;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    .hero, .faq-wrap, .cta-wrap {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .faq-wrap  { animation-delay: 0.15s; }
+    .cta-wrap  { animation-delay: 0.28s; }
+
+    @keyframes fadeUp { to { opacity: 1; transform: none; } }
+
+    @media (max-width: 600px) {
+      .hero { padding: 3rem 1.5rem 2rem; }
+      .faq-wrap { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <svg width="120" height="32" viewBox="0 -14 170 60" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="44,34 65,24 80,30 100,12 118,20 148,6" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+        <polygon points="148,0 152,6 148,12 144,6" fill="#C9A84C"/>
+        <text x="44" y="30" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" letter-spacing="1">PINN<tspan fill="#C9A84C">A</tspan>CLE</text>
+        <text x="44" y="44" font-family="Arial, sans-serif" font-size="6" fill="#C9A84C" letter-spacing="3">CONTENT CO.</text>
+      </svg>
+    </a>
+    <a href="/" class="nav-back">← Back to site</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">FAQ</p>
+    <h1 class="hero-title">Straight answers<br><em>to real questions.</em></h1>
+    <p class="hero-sub">Everything you want to know before booking a call — from how content gets written to what happens if you want changes.</p>
+    <div class="divider"></div>
+  </section>
+
+  <!-- FAQ -->
+  <div class="faq-wrap">
+
+    <!-- SERVICES -->
+    <div class="faq-section">
+      <div class="faq-section-label">Services & Scope</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What exactly do you write?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>We write SEO blog posts and LinkedIn content for CPA firms and financial professionals. Every piece is written in your voice, under your name, and built around the topics your potential clients are actively searching for.</p>
+            <p>The Starter plan includes 4 blog posts and 4 LinkedIn posts per month. The Pro plan includes the same plus done-for-you publishing — we post directly to your site so you never have to touch it. A newsletter add-on is available on both plans for an additional $200/month.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do you write about tax advice or financial advice?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>No. All content we produce is clearly framed as general educational information — not tax, legal, or financial advice. Every piece includes appropriate disclaimers and encourages readers to consult a qualified professional for their specific situation.</p>
+            <p>We understand the compliance environment your firm operates in. Staying clearly on the right side of that line is not an afterthought — it is built into how we write.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is this ghostwriting? Will my name be on the content?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Yes — everything we write is ghostwritten and published under your name. This is standard practice in professional content marketing and is widely used across industries including finance, law, and medicine.</p>
+            <p>The content is written to sound like you, reflect your firm's voice, and represent your expertise. You review and approve every piece before it goes anywhere. Once published, it is yours.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do you work with financial advisors and other regulated professionals, or only CPAs?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Our primary focus is CPA firms and accounting professionals. We also work with other regulated industries where compliance-aware content matters — including financial advisory firms and similar practices.</p>
+            <p>If you are unsure whether we are the right fit for your firm, the strategy call is the best place to find out. It is free and takes 30 minutes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROCESS -->
+    <div class="faq-section">
+      <div class="faq-section-label">Process & Timeline</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How long does it take to get started?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Most clients are up and running within one week of signing. After you complete the onboarding form, we build your first content calendar and have it to you for approval within 5 days. First drafts are delivered in week two.</p>
+            <p>The onboarding form takes about 10 minutes and covers your firm, your voice, your clients, and your goals. It drives everything we write — the more detail you give us, the better the content.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do you learn my firm's voice?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Through the onboarding form, which covers your communication style, the clients you work with, the topics you care about, and how you like to explain things. We also offer an optional 20-minute kickoff call if you would like to talk through anything directly.</p>
+            <p>Voice accuracy improves over time. Most clients find that by the second month, the content requires very few edits — because we have learned how they think and write.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How is content delivered?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>All content is delivered via a shared Google Drive folder — organized, labeled, and ready to review. You will receive an email notification when new pieces are available, with direct links to each document.</p>
+            <p>Pro plan clients who have opted into done-for-you publishing will have content posted directly to their site after approval. Starter plan clients receive the documents and publish on their own schedule.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVISIONS -->
+    <div class="faq-section">
+      <div class="faq-section-label">Revisions & Quality</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What if I want changes to a piece?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Each piece includes up to two rounds of revisions. You review the draft, leave your feedback in the Google Doc, and we turn around revisions promptly — typically within 48 hours.</p>
+            <p>In practice, most pieces require very few changes. The onboarding process and content calendar approval are designed to get the direction right before writing begins, which means the drafts tend to land close to where they need to be.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What if I am not happy with the content?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>We stand behind what we deliver. If a piece is not meeting the standard you expected, tell us specifically what is not working — and we will fix it. The two-revision rounds exist precisely for this.</p>
+            <p>If after the first month the content is consistently missing the mark, we want to know. The 30-day check-in is built into our process for exactly this reason — to catch anything that needs adjusting before it becomes a pattern.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do you use AI to write the content?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>We are transparent about our process: AI tools are used as part of the research and drafting workflow, with significant human editing, rewriting, and quality review at every stage. The final content is reviewed for accuracy, voice, tone, and compliance framing before it reaches you.</p>
+            <p>The result is content that reads like a knowledgeable professional wrote it — because a knowledgeable professional shaped, reviewed, and is accountable for every piece.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="faq-section">
+      <div class="faq-section-label">Pricing & Contracts</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What does it cost?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p><strong>Starter — $800/month:</strong> 4 SEO blog posts and 4 LinkedIn posts. You review and publish on your own timeline.</p>
+            <p><strong>Pro — $1,000/month:</strong> Everything in Starter, plus done-for-you publishing — we post directly to your site after your approval.</p>
+            <p>A newsletter add-on is available on either plan for $200/month additional. There are no setup fees and no long-term contracts.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is there a contract? What if I want to cancel?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>No long-term contracts. You can cancel at any time with 14 days written notice. There are no refunds for partial months — if you cancel mid-cycle, service continues through the end of that billing period.</p>
+            <p>We would rather earn your continued business every month than lock you into something. Most clients stay because the content works — not because they have to.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          When and how do I pay?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Payment is due at the start of each billing cycle. We invoice monthly and accept payment via Stripe. Late payments may result in a pause of services until the balance is cleared.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPLIANCE -->
+    <div class="faq-section">
+      <div class="faq-section-label">Compliance & Ethics</div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How do you handle compliance-sensitive topics?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>Carefully. We have a background in financial services and understand the environment CPA firms operate in. Every piece is written to stay clearly within the bounds of general educational content — not advice.</p>
+            <p>During onboarding, we ask you to flag any topics, client types, or areas you want us to avoid or treat with particular care. Those restrictions are documented and followed throughout the engagement.</p>
+            <p>You review and approve every piece before it is published. Nothing goes out without your sign-off.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Who owns the content once it is written?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>You do. Upon receipt of payment, all content produced for your firm becomes your sole property. We retain no rights to use, republish, or reference it without your permission.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Do you work with competing firms simultaneously?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            <p>We are selective about taking on clients in the same market. If exclusivity within your geographic area or specialty is important to you, raise it during the strategy call and we will discuss what is possible.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <h2>Still have a question?<br><em>Just ask.</em></h2>
+    <p>Book a free 30-minute strategy call and ask us anything — no pitch, no pressure.</p>
+    <a href="/strategy" class="btn-primary">Request Your Free Strategy Call</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Pinnacle Content Co. &nbsp;·&nbsp; <a href="mailto:kevin@pinnaclecontentco.com">kevin@pinnaclecontentco.com</a> &nbsp;·&nbsp; <a href="/">pinnaclecontentco.com</a></p>
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+
+</body>
+</html>
