@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12 Blog Topics Every CPA Should Publish — Free Download</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #0D1B2A;
+      --navy-mid: #162236;
+      --gold:     #C9A84C;
+      --gold-dim: rgba(201,168,76,0.15);
+      --cream:    #F5F0E8;
+      --slate:    #8A9BB0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--navy);
+      color: var(--cream);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(201,168,76,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(201,168,76,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,0.18);
+      padding: 0 2rem;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .nav-logo svg { height: 32px; width: auto; }
+
+    .nav-back {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--gold); }
+
+    /* ── hero ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 5rem 2rem 3rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      color: var(--slate);
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 3rem;
+      opacity: 0.5;
+    }
+
+    /* ── topics list ── */
+    .topics {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto 3rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem 2rem;
+    }
+
+    .topic-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--slate);
+      line-height: 1.5;
+    }
+
+    .topic-num {
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    /* ── form card ── */
+    .form-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 580px;
+      margin: 0 auto 5rem;
+      padding: 0 1.5rem;
+    }
+
+    .form-card {
+      background: var(--navy-mid);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 4px;
+      padding: 2.5rem 2.5rem 1rem;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,168,76,0.05) inset;
+    }
+
+    .form-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+    }
+
+    .form-card-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .form-card-icon svg { width: 16px; height: 16px; }
+
+    .form-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+
+    .form-card-sub {
+      font-size: 0.78rem;
+      color: var(--slate);
+      margin-top: 0.2rem;
+      letter-spacing: 0.03em;
+    }
+
+    .tally-wrap {
+      min-height: 200px;
+      background: transparent;
+    }
+
+    .tally-wrap iframe {
+      display: block;
+      background: transparent !important;
+    }
+
+    /* ── footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      font-size: 0.72rem;
+      color: var(--slate);
+      letter-spacing: 0.06em;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    .hero, .topics, .form-wrap {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+    .topics   { animation-delay: 0.15s; }
+    .form-wrap { animation-delay: 0.28s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 600px) {
+      .form-card { padding: 1.5rem 1.2rem 0.5rem; }
+      .hero { padding: 3rem 1.5rem 2rem; }
+      .topics { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <svg width="120" height="32" viewBox="0 -14 170 60" xmlns="http://www.w3.org/2000/svg">
+        <polyline points="44,34 65,24 80,30 100,12 118,20 148,6" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+        <polygon points="148,0 152,6 148,12 144,6" fill="#C9A84C"/>
+        <text x="44" y="30" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" letter-spacing="1">PINN<tspan fill="#C9A84C">A</tspan>CLE</text>
+        <text x="44" y="44" font-family="Arial, sans-serif" font-size="6" fill="#C9A84C" letter-spacing="3">CONTENT CO.</text>
+      </svg>
+    </a>
+    <a href="/" class="nav-back">← Back to site</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Free Download</p>
+    <h1 class="hero-title">12 Blog Topics Every CPA<br>Should Publish <em>This Year.</em></h1>
+    <p class="hero-sub">A ready-to-use content calendar of the exact topics your potential clients are searching for right now. No guesswork. Just publish.</p>
+    <div class="divider"></div>
+  </section>
+
+  <!-- TOPICS PREVIEW -->
+  <div class="topics">
+    <div class="topic-item"><span class="topic-num">01</span>What to look for in a CPA</div>
+    <div class="topic-item"><span class="topic-num">07</span>Year-end tax planning checklist</div>
+    <div class="topic-item"><span class="topic-num">02</span>Common tax mistakes small businesses make</div>
+    <div class="topic-item"><span class="topic-num">08</span>How to read a financial statement</div>
+    <div class="topic-item"><span class="topic-num">03</span>When to hire a bookkeeper vs. a CPA</div>
+    <div class="topic-item"><span class="topic-num">09</span>LLC vs. S-Corp: what's right for you</div>
+    <div class="topic-item"><span class="topic-num">04</span>How we approach client communication</div>
+    <div class="topic-item"><span class="topic-num">10</span>5 deductions most clients overlook</div>
+    <div class="topic-item"><span class="topic-num">05</span>What happens during an IRS audit</div>
+    <div class="topic-item"><span class="topic-num">11</span>Why your firm needs a digital presence</div>
+    <div class="topic-item"><span class="topic-num">06</span>Quarterly estimated taxes explained</div>
+    <div class="topic-item"><span class="topic-num">12</span>How to choose the right accounting software</div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-wrap">
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="form-card-icon">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 4h12M2 8h8M2 12h5" stroke="#C9A84C" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <div class="form-card-title">Send me the free list</div>
+          <div class="form-card-sub">Delivered instantly · No spam · Unsubscribe anytime</div>
+        </div>
+      </div>
+      <div class="tally-wrap">
+        <iframe data-tally-src="https://tally.so/embed/b5NOQ6?alignLeft=1&hideTitle=1&dynamicHeight=1" loading="lazy" width="100%" height="214" frameborder="0" marginheight="0" marginwidth="0" title="12 Blog Topics — Free Download"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Pinnacle Content Co. &nbsp;·&nbsp; <a href="mailto:kevin@pinnaclecontentco.com">kevin@pinnaclecontentco.com</a> &nbsp;·&nbsp; <a href="/">pinnaclecontentco.com</a></p>
+  </footer>
+
+  <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+</body>
+</html>
